@@ -1,16 +1,28 @@
 package com.ofss.model;
 
-// import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="Customer")
 public class Customer {
+	@Id
 	private int custId;
 	private String firstName;
 	private String lastName;
 	private String city;
 	private String emailId;
 	private long phoneNumber;
-	private List<Integer> stockIds;
+
+	// A customer can have multiple transactions
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions = new ArrayList<>();
 	
 	public Customer() {
 		// default constructor, using which you can initialize default values
@@ -21,14 +33,13 @@ public class Customer {
 	// define a constructor to initialize the attributes
 	// parametrized constructor
 	public Customer(int custId, String firstName, String lastName, String city, String emailId,
-			long phoneNumber,List<Integer> stockIds) {
+			long phoneNumber) {
 		this.custId = custId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.city = city;
 		this.emailId = emailId;
 		this.phoneNumber = phoneNumber;
-		this.stockIds=stockIds;
 	}
 
 	public int getCustId() {
@@ -79,12 +90,11 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public List<Integer> getStockIds() { 
-		return stockIds; 
+	public List<Transaction> getTransactions() {
+		return transactions;
 	}
-	
-    public void setStockIds(List<Integer> stockIds) { 
-    	this.stockIds = stockIds; 
-    }
 
+	public void setTransaction(List<Transaction> transactions) {
+		this.transactions=transactions;
+	}
 }

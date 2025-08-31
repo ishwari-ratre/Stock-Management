@@ -10,18 +10,22 @@ public class Stocks {
 	@Id
 	private int stockId;
 	private String stockName;
+	private String stockSymbol;
 	private double stockPrice;
+	private int stockVolume;
 	private String exchangeName;
 	
 	public Stocks() {
 		super();
 	}
 
-	public Stocks(int stockId, String stockName, double stockPrice, String exchangeName) {
+	public Stocks(int stockId, String stockName,String stockSymbol, double stockPrice,int stockVolume, String exchangeName) {
 		this.stockId = stockId;
 		this.stockName = stockName;
+		this.stockSymbol=stockSymbol;
 		this.stockPrice = stockPrice;
 		this.exchangeName = exchangeName;
+		this.stockVolume= stockVolume;
 	}
 
 	public int getStockId() {
@@ -40,6 +44,14 @@ public class Stocks {
 		this.stockName = stockName;
 	}
 
+	public String getStockSymbol() {
+		return stockSymbol;
+	}
+
+	public void setStockSymbol(String stockSymbol) {
+		this.stockSymbol=stockSymbol;
+	}
+
 	public double getStockPrice() {
 		return stockPrice;
 	}
@@ -54,6 +66,13 @@ public class Stocks {
 
 	public void setExchangeName(String exchangeName) {
 		this.exchangeName = exchangeName;
+	}
+	
+	public void setStockVolume(int stockVolume) {
+		this.stockVolume = stockVolume;
+	}
+	public int getStockVolume() {
+		return stockVolume;
 	}
 }
 
