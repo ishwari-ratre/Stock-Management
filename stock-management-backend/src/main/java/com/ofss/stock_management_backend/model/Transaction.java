@@ -1,4 +1,4 @@
-package com.ofss.model;
+package com.ofss.stock_management_backend.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -13,19 +13,19 @@ public class Transaction {
 
     // Many transactions belong to one customer
     @ManyToOne
-    @JoinColumn(name = "custId", nullable = false)   // matches Customer PK
+    @JoinColumn(name = "emailId", nullable = false) // matches Customer PK
     private Customer customer;
 
     // Many transactions involve one stock
     @ManyToOne
-    @JoinColumn(name = "stockId", nullable = false)  // matches Stocks PK
-    private Stocks stock;
+    @JoinColumn(name = "stockId", nullable = false) // matches Stocks PK
+    private Stock stock;
 
     private int quantity;
     private double priceAtTransaction;
 
     @Enumerated(EnumType.STRING)
-    private TransactionType type;  // BUY or SELL
+    private TransactionType type; // BUY or SELL
 
     private LocalDateTime timestamp;
 
@@ -34,7 +34,8 @@ public class Transaction {
         super();
     }
 
-    public Transaction(Customer customer, Stocks stock, int quantity,double priceAtTransaction, TransactionType type,LocalDateTime timestamp) {
+    public Transaction(Customer customer, Stock stock, int quantity, double priceAtTransaction, TransactionType type,
+            LocalDateTime timestamp) {
         this.customer = customer;
         this.stock = stock;
         this.quantity = quantity;
@@ -47,6 +48,7 @@ public class Transaction {
     public Long getTransactionId() {
         return transactionId;
     }
+
     public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
@@ -54,20 +56,23 @@ public class Transaction {
     public Customer getCustomer() {
         return customer;
     }
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public Stocks getStock() {
+    public Stock getStock() {
         return stock;
     }
-    public void setStock(Stocks stock) {
+
+    public void setStock(Stock stock) {
         this.stock = stock;
     }
 
     public int getQuantity() {
         return quantity;
     }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
@@ -75,6 +80,7 @@ public class Transaction {
     public double getPriceAtTransaction() {
         return priceAtTransaction;
     }
+
     public void setPriceAtTransaction(double priceAtTransaction) {
         this.priceAtTransaction = priceAtTransaction;
     }
@@ -82,6 +88,7 @@ public class Transaction {
     public TransactionType getType() {
         return type;
     }
+
     public void setType(TransactionType type) {
         this.type = type;
     }
@@ -89,8 +96,8 @@ public class Transaction {
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
+
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 }
-

@@ -1,12 +1,12 @@
-package com.ofss.model;
+package com.ofss.stock_management_backend.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Stocks")
-public class Stocks {
+@Table(name = "Stock")
+public class Stock {
 	@Id
 	private int stockId;
 	private String stockName;
@@ -14,18 +14,19 @@ public class Stocks {
 	private double stockPrice;
 	private int stockVolume;
 	private String exchangeName;
-	
-	public Stocks() {
+
+	public Stock() {
 		super();
 	}
 
-	public Stocks(int stockId, String stockName,String stockSymbol, double stockPrice,int stockVolume, String exchangeName) {
+	public Stock(int stockId, String stockName, String stockSymbol, double stockPrice, int stockVolume,
+			String exchangeName) {
 		this.stockId = stockId;
 		this.stockName = stockName;
-		this.stockSymbol=stockSymbol;
+		this.stockSymbol = stockSymbol;
 		this.stockPrice = stockPrice;
 		this.exchangeName = exchangeName;
-		this.stockVolume= stockVolume;
+		this.stockVolume = stockVolume;
 	}
 
 	public int getStockId() {
@@ -49,7 +50,7 @@ public class Stocks {
 	}
 
 	public void setStockSymbol(String stockSymbol) {
-		this.stockSymbol=stockSymbol;
+		this.stockSymbol = stockSymbol;
 	}
 
 	public double getStockPrice() {
@@ -67,12 +68,12 @@ public class Stocks {
 	public void setExchangeName(String exchangeName) {
 		this.exchangeName = exchangeName;
 	}
-	
+
 	public void setStockVolume(int stockVolume) {
 		this.stockVolume = stockVolume;
 	}
+
 	public int getStockVolume() {
 		return stockVolume;
 	}
 }
-

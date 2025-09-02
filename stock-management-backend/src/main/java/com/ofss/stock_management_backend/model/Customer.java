@@ -1,4 +1,4 @@
-package com.ofss.model;
+package com.ofss.stock_management_backend.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,45 +10,35 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Customer")
+@Table(name = "Customer")
 public class Customer {
 	@Id
-	private int custId;
+	private String emailId;
 	private String firstName;
 	private String lastName;
 	private String password;
 	private String city;
-	private String emailId;
 	private long phoneNumber;
 
 	// A customer can have multiple transactions
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transaction> transactions = new ArrayList<>();
-	
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Transaction> transactions = new ArrayList<>();
+
 	public Customer() {
 		// default constructor, using which you can initialize default values
 		// or call it as a no-arg constructor
 		super();
 	}
-	
+
 	// define a constructor to initialize the attributes
 	// parametrized constructor
 	public Customer(int custId, String firstName, String lastName, String city, String emailId,
 			long phoneNumber) {
-		this.custId = custId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.city = city;
 		this.emailId = emailId;
 		this.phoneNumber = phoneNumber;
-	}
-
-	public int getCustId() {
-		return custId;
-	}
-
-	public void setCustId(int custId) {
-		this.custId = custId;
 	}
 
 	public String getFirstName() {
@@ -98,12 +88,12 @@ public class Customer {
 	public void setPhoneNumber(long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
+
 	public List<Transaction> getTransactions() {
 		return transactions;
 	}
 
 	public void setTransaction(List<Transaction> transactions) {
-		this.transactions=transactions;
+		this.transactions = transactions;
 	}
 }
