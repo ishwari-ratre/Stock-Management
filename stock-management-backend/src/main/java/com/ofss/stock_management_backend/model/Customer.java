@@ -20,9 +20,10 @@ public class Customer {
 	private String city;
 	private long phoneNumber;
 
-	// A customer can have multiple transactions
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Transaction> transactions = new ArrayList<>();
+	// // A customer can have multiple transactions
+	// @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval =
+	// true)
+	// private List<Transaction> transactions = new ArrayList<>();
 
 	public Customer() {
 		// default constructor, using which you can initialize default values
@@ -89,11 +90,11 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public List<Transaction> getTransactions() {
-		return transactions;
-	}
+	// public List<Transaction> getTransactions() {
+	// return transactions;
+	// }
 
-	public void setTransaction(List<Transaction> transactions) {
-		this.transactions = transactions;
-	}
+	// public void setTransaction(List<Transaction> transactions) {
+	// this.transactions = transactions;
+	// }
 }

@@ -18,7 +18,7 @@ public class Transaction {
 
     // Many transactions involve one stock
     @ManyToOne
-    @JoinColumn(name = "stockSymbol", nullable = false) // matches Stocks PK
+    @JoinColumn(name = "stockId", nullable = false) // matches Stocks PK
     private Stock stock;
 
     private int quantity;

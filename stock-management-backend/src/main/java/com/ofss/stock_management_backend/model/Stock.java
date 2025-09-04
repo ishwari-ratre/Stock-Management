@@ -1,79 +1,98 @@
 package com.ofss.stock_management_backend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "Stock")
 public class Stock {
-	@Id
-	private int stockId;
-	private String stockName;
-	private String stockSymbol;
-	private double stockPrice;
-	private int stockVolume;
-	private String exchangeName;
 
-	public Stock() {
-		super();
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stock_seq")
+    @SequenceGenerator(name = "stock_seq", sequenceName = "STOCK_SEQ", allocationSize = 1)
+    private int stockId;
+    private String Name;
+    @Column(name = "symbol", unique = true, nullable = false)
+    private String symbol;
+    private double basePrice;
+    private String industry;
+    // private double quantity;
 
-	public Stock(int stockId, String stockName, String stockSymbol, double stockPrice, int stockVolume,
-			String exchangeName) {
-		this.stockId = stockId;
-		this.stockName = stockName;
-		this.stockSymbol = stockSymbol;
-		this.stockPrice = stockPrice;
-		this.exchangeName = exchangeName;
-		this.stockVolume = stockVolume;
-	}
+    @Transient
+    private String colorTag;
 
-	public int getStockId() {
-		return stockId;
-	}
+    public String getColorTag() {
+        return colorTag;
+    }
 
-	public void setStockId(int stockId) {
-		this.stockId = stockId;
-	}
+    public void setColorTag(String colorTag) {
+        this.colorTag = colorTag;
+    }
 
-	public String getStockName() {
-		return stockName;
-	}
+    public Stock() {
+    }
 
-	public void setStockName(String stockName) {
-		this.stockName = stockName;
-	}
+    public Stock(int stockId,
+            String Name,
+            String symbol,
+            double basePrice,
+            String industry) {
+        this.stockId = stockId;
+        this.Name = Name;
+        this.symbol = symbol;
+        this.industry = industry;
+    }
 
-	public String getStockSymbol() {
-		return stockSymbol;
-	}
+    public int getstockId() {
+        return stockId;
+    }
 
-	public void setStockSymbol(String stockSymbol) {
-		this.stockSymbol = stockSymbol;
-	}
+    public void setstockId(int stockId) {
+        this.stockId = stockId;
+    }
 
-	public double getStockPrice() {
-		return stockPrice;
-	}
+    public String getSymbol() {
+        return symbol;
+    }
 
-	public void setStockPrice(double stockPrice) {
-		this.stockPrice = stockPrice;
-	}
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-	public String getExchangeName() {
-		return exchangeName;
-	}
+    public double getBasePrice() {
+        return basePrice;
+    }
 
-	public void setExchangeName(String exchangeName) {
-		this.exchangeName = exchangeName;
-	}
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
 
-	public void setStockVolume(int stockVolume) {
-		this.stockVolume = stockVolume;
-	}
+    public String getName() {
+        return Name;
+    }
 
-	public int getStockVolume() {
-		return stockVolume;
-	}
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
+
+    // public double getQuantity() {
+    // return quantity;
+    // }
+    // public void setQuantity(double quantity) {
+    // this.quantity = quantity;
+    // }
 }

@@ -3,6 +3,10 @@ package com.ofss.stock_management_backend.controller;
 import com.ofss.stock_management_backend.dto.TradeRequest;
 import com.ofss.stock_management_backend.model.Transaction;
 import com.ofss.stock_management_backend.service.TransactionService;
+
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +45,17 @@ public class TransactionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Something went wrong while selling stock");
         }
+    }
+
+    // Get all transaction history
+    @GetMapping("/history/{email}")
+    public ResponseEntity<List<Transaction>> getTransactionHistory(@PathVariable String email) {
+        return ResponseEntity.ok(transactionService.getTransactionHistory(email));
+    }
+
+    // Get portfolio (current holdings)
+    @GetMapping("/portfolio/{email}")
+    public ResponseEntity<Map<String, Integer>> getPortfolio(@PathVariable String email) {
+        return ResponseEntity.ok(transactionService.getPortfolio(email));
     }
 }
