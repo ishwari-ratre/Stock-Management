@@ -2,6 +2,7 @@ package com.ofss.stock_management_backend.controller;
 
 import com.ofss.stock_management_backend.model.Customer;
 import com.ofss.stock_management_backend.service.CustomerService;
+import com.ofss.stock_management_backend.util.JwtUtil;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final CustomerService customerService;
+    private final JwtUtil jwtUtil;
 
-    public AuthController(CustomerService customerService) {
+    public AuthController(CustomerService customerService, JwtUtil jwtUtil) {
         this.customerService = customerService;
+        this.jwtUtil = jwtUtil;
     }
 
     // REGISTER
@@ -32,8 +35,8 @@ public class AuthController {
     public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
         Customer customer = customerService.authenticate(email, password);
         if (customer != null) {
-            return ResponseEntity
-                    .ok("Login successful for customer: " + customer.getFirstName() + " " + customer.getLastName());
+            String token = jwtUtil.generateToken(email);
+            return ResponseEntity.ok("Login successful! Your JWT token: " + token);
         } else {
             return ResponseEntity.status(401).body("Invalid credentials!");
         }

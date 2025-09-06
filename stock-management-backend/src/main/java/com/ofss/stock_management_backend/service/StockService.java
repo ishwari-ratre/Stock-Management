@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import com.ofss.stock_management_backend.model.Stock;
 import com.ofss.stock_management_backend.model.StockHistory;
 import com.ofss.stock_management_backend.repository.StockHistoryRepository;
 import com.ofss.stock_management_backend.repository.StockRepository;
+
+import org.springframework.dao.DataIntegrityViolationException;
 
 @Service
 public class StockService {
@@ -46,14 +49,47 @@ public class StockService {
         return ResponseEntity.ok(stocks);
     }
 
+    // public ResponseEntity<Object> addStock(Stock stock) {
+    // // return ResponseEntity.status(201).body(sr.save(stock));
+    // try {
+    // Stock savedStock = sr.save(stock);
+    // return ResponseEntity.status(HttpStatus.CREATED).body(savedStock);
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    // .body("Error saving stock: " + e.getMessage());
+    // }
+    // }
+
+    // updated one and working but at home check it once
     public ResponseEntity<Object> addStock(Stock stock) {
-        return ResponseEntity.status(201).body(sr.save(stock));
+        try {
+            // Check for existing stock by symbol
+            Stock existing = sr.findBySymbol(stock.getSymbol());
+            if (existing != null) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("Stock with symbol '" + stock.getSymbol() + "' already exists.");
+            }
+            Stock savedStock = sr.save(stock);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedStock);
+
+        } catch (DataIntegrityViolationException e) {
+            // Handles DB constraint violations
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate symbol error: " + e.getMessage());
+
+        } catch (Exception e) {
+            // Handles any other unexpected errors
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error saving stock: " + e.getMessage());
+        }
     }
 
     public ResponseEntity<Object> findBySymbol(String Symbol) {
         Stock stock = sr.findBySymbol(Symbol);
         if (stock == null) {
-            return ResponseEntity.notFound().build();
+            // return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stock with symbol '" + Symbol + "' not found");
         }
         return ResponseEntity.ok(stock);
     }
@@ -66,7 +102,9 @@ public class StockService {
     public ResponseEntity<Object> updateStock(String symbol, Stock updatedStock) {
         Stock stock = sr.findBySymbol(symbol);
         if (stock == null) {
-            return ResponseEntity.notFound().build();
+            // return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Stock with symbol '" + symbol + "' not found");
         }
 
         stock.setName(updatedStock.getName());
@@ -79,7 +117,8 @@ public class StockService {
     public ResponseEntity<Object> deleteBySymbol(String symbol) {
         Stock stock = sr.findBySymbol(symbol);
         if (stock == null) {
-            return ResponseEntity.notFound().build();
+            // return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stock with symbol '" + symbol + "' not found");
         }
 
         sr.delete(stock);
@@ -92,7 +131,8 @@ public class StockService {
     public ResponseEntity<Object> getLatestPrice(String symbol) {
         Stock stock = sr.findBySymbol(symbol);
         if (stock == null) {
-            return ResponseEntity.notFound().build();
+            // return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stock with symbol '" + symbol + "' not found");
         }
 
         StockHistory latest = shr.findTopByStockOrderByTradeDateDesc(stock);

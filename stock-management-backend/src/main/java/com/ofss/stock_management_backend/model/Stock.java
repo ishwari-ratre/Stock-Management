@@ -36,6 +36,7 @@ public class Stock {
     }
 
     public Stock() {
+        super();
     }
 
     public Stock(int stockId,

@@ -28,8 +28,11 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public void deleteCustomer(String id) {
-        customerRepository.deleteByEmailId(id);
+    public void deleteCustomer(String email) {
+        if (!customerRepository.existsById(email)) {
+            throw new RuntimeException("Customer not found with email: " + email);
+        }
+        customerRepository.deleteById(email);
     }
 
     // Register customer
