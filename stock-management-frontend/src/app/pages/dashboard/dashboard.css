@@ -1,0 +1,407 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #222831;
+    color: #EEEEEE;
+    line-height: 1.6;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #222831;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .logo img {
+    height: 60px;
+    background: #ffffff;
+    padding: 4px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
+  
+  .logo h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #DDDDDD;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: #EEEEEE;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links li a:hover {
+    color: #F66B34;
+  }
+  
+  .btn-signup {
+    background: linear-gradient(90deg, #F66B34, #ff914d);
+    color: #EEEEEE;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-signup:hover {
+    background-color: #09bd09;
+  }
+  
+  /* Profile Section */
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    /* background: #2c313c url('profile-bg.png') no-repeat center/cover; */
+    border-radius: 15px;
+    margin: 20px 30px;
+    box-shadow: 0 4px 10px rgba(171, 170, 170, 0.4);
+  }
+  
+  .profile-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #F66B34;
+  }
+  
+  .profile-info h2 {
+    font-size: 24px;
+    color: #F66B34;
+    text-transform: capitalize;
+  }
+  
+  .btn-edit {
+    padding: 6px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: #F66B34;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-edit:hover {
+    background-color: #ff914d;
+  }
+  
+  /* Dashboard Layout */
+  .dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    padding: 30px;
+  }
+  
+  section {
+    background: #2c313c;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(171, 170, 170, 0.4);
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(171, 170, 170, 0.6);
+  }
+  
+  /* Section header: image + heading inline */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .section-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+/* ==============================
+   Wallet & Portfolio Sections
+   ============================== */
+
+/* Two-column layout for wallet & portfolio */
+.wallet-content,
+.portfolio-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Left column: image like profile */
+.wallet-left, .portfolio-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wallet-left img, .portfolio-left img {
+  width: 80px;           /* same size as profile image */
+  height: 80px;
+  border-radius: 50%;    /* circular image */
+  border: 2px solid #F66B34;
+  object-fit: cover;
+}
+
+/* Right column: heading + content */
+.wallet-right, .portfolio-right {
+  flex: 2;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px 0;
+}
+
+/* Headings */
+.wallet-right h2, .portfolio-right h2 {
+  color: #F66B34;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Paragraphs / details */
+.wallet-right p, .portfolio-right p {
+  font-size: 1.1rem;
+  margin: 4px 0;
+  font-weight: bold;
+}
+
+
+/* Wallet & Portfolio progress bar colors */
+#walletProgress {
+  background: #FFD180;   /* orange shade */
+}
+
+#portfolioProgress {
+  background: #00FF99;   /* green shade */
+}
+
+/* Section cards: neutral background */
+.wallet, .portfolio {
+  background: #2c313c;   /* same as other sections */
+  color: #FFFFFF;
+  border-radius: 15px;
+  padding: 20px 25px;
+  box-shadow: 0 4px 10px rgba(171, 170, 170, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.wallet:hover, .portfolio:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(171, 170, 170, 0.6);
+}
+
+  /* Transactions Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+  }
+  
+  tr:hover {
+    background-color: #333;
+  }
+  
+  .buy {
+    color: #00FF00;
+    font-weight: bold;
+  }
+  
+  .sell {
+    color: #FFA500;
+    font-weight: bold;
+  }
+  
+  /* Market List */
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+  /* =============================
+   Modal Popup for Edit Profile
+   ============================= */
+
+.modal {
+    display: none; /* hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); /* slightly dim */
+    backdrop-filter: blur(10px); /* blur the background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  .modal-content {
+    background-color: #2c313c; /* dark theme */
+    width: 400px;
+    border-radius: 25px;
+    padding: 25px 30px;
+    color: #EEEEEE;
+    box-shadow: 0 0 25px rgba(234, 231, 231, 0.2), 0 0 50px rgba(255,255,255,0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: hidden; /* prevent scrolling */
+  }
+  
+  /* Close Button */
+  .close-btn {
+    color: #F66B34;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover {
+    color: #ff914d;
+  }
+  
+  /* Modal Header with Profile Image */
+  .modal-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .modal-profile-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #F66B34;
+    object-fit: cover;
+    transition: box-shadow 0.4s ease;
+  }
+  
+  .modal.show .modal-profile-img {
+    box-shadow: 0 0 15px rgba(246,107,52,0.8), 0 0 30px rgba(246,107,52,0.5);
+  }
+  
+  .modal-header h2 {
+    color: #F66B34;
+    font-size: 1.5rem;
+  }
+  
+  /* Form Labels and Inputs */
+  .modal form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+  
+  .modal form input {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: #5b5958;
+    color: #f6efef;
+    font-size: 16px;
+    font-weight: 700;
+    outline: none;
+    transition: background 0.3s ease;
+  }
+  
+  .modal form input::placeholder {
+    color: #bdb8b8;
+  }
+  
+  .modal form input:focus {
+    outline: none;
+    border: 1px solid #FFFFFF;
+    animation: glow 1.5s infinite alternate;
+  }
+  
+  .modal form input[readonly] {
+    background-color: #555b65;
+    color: #CCCCCC;
+  }
+  
+  /* Submit button (same as login page) */
+  .modal form .btn-login {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 25px;
+    background-color: #F66B34;
+    color: #FFFFFF;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 20px rgba(255,255,255,0.1);
+  }
+  
+  .modal form .btn-login:hover {
+    background: #FFFFFF;
+    color: black;
+    animation: glow 1.5s infinite alternate;
+    box-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.3);
+  }

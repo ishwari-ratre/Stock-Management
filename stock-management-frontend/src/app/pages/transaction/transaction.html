@@ -1,0 +1,82 @@
+<header class="navbar">
+  <h2>InvestOne</h2>
+</header>
+
+<section class="transactions-container">
+  <h1 class="transaction-heading">📈 Your Transaction</h1>
+
+  <!-- Top Section with Cards -->
+  <div class="transactions-summary">
+
+    <!-- Image Card -->
+    <div class="summary-card image-card">
+      <img src="vecteezy_technical-analysis-trader-to-analyze-stock-market-or-crypto_29213224 (1) copy.svg" alt="Transactions Image">
+    </div>
+
+    <!-- Stats Card -->
+    <div class="summary-card stats-card">
+      <h3>📊 Transaction Summary</h3>
+      <div class="stat-row">
+        <span>Total Transactions:</span>
+        <span>{{ filteredTransactions.length }}</span>
+      </div>
+      <div class="stat-row">
+        <span>Total Buy:</span>
+        <span>{{ getTotalBuy() }}</span>
+      </div>
+      <div class="stat-row">
+        <span>Total Sell:</span>
+        <span>{{ getTotalSell() }}</span>
+      </div>
+    </div>
+
+    <!-- Filters Card -->
+    <div class="summary-card filters-card">
+      <h3>🔎 Filters</h3>
+      <div class="filter-group">
+        <label for="filterType">Transaction Type</label>
+        <select id="filterType" [(ngModel)]="filterType" (change)="applyFilters()">
+          <option value="all">All</option>
+          <option value="buy">Buy</option>
+          <option value="sell">Sell</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="searchStock">Search Stock</label>
+        <input type="text" id="searchStock" [(ngModel)]="searchStock" (input)="applyFilters()" placeholder="Enter stock name or symbol">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Table Section -->
+  <table class="transactions-table">
+    <thead>
+      <tr>
+        <th>Txn ID</th>
+        <th>Stock Name</th>
+        <th>Symbol</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Type</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="filteredTransactions.length === 0">
+        <td colspan="7" style="text-align:center; color:#AAAAAA;">No transactions available</td>
+      </tr>
+      <tr *ngFor="let txn of filteredTransactions">
+        <td>{{ txn.id }}</td>
+        <td>{{ txn.name }}</td>
+        <td>{{ txn.symbol }}</td>
+        <td>{{ txn.quantity }}</td>
+        <td>{{ txn.price | currency }}</td>
+        <td [ngClass]="txn.type === 'buy' ? 'type-buy' : 'type-sell'">
+          {{ txn.type.toUpperCase() }}
+        </td>
+        <td>{{ txn.timestamp }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

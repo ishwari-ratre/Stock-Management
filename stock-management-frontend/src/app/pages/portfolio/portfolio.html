@@ -1,0 +1,57 @@
+
+  <header class="navbar">
+  <h2>InvestOne</h2>
+</header>
+
+<section class="portfolio-container">
+  <!-- Heading -->
+  <h1 class="portfolio-heading">📈 Your Portfolio</h1>
+
+  <!-- Portfolio Summary Cards -->
+  <div class="portfolio-summary">
+    <div class="summary-card first-card">
+      <img src="portfolio_section.svg" alt="Portfolio Image">
+    </div>
+
+    <div class="summary-card">
+      <h3>Total Value</h3>
+      <p>{{ totalValue | currency }}</p>
+    </div>
+    <div class="summary-card">
+      <h3>Total Profit</h3>
+      <p [ngClass]="{'profit': totalProfit >= 0, 'loss': totalProfit < 0}">
+        {{ totalProfit >= 0 ? '+' : '' }}{{ totalProfit | currency }}
+      </p>
+    </div>
+    <div class="summary-card">
+      <h3>Total Holdings</h3>
+      <p>{{ portfolio.length }} Stocks</p>
+    </div>
+  </div>
+
+  <!-- Portfolio Table -->
+  <table class="portfolio-table">
+    <thead>
+      <tr>
+        <th>Stock Name</th>
+        <th>Symbol</th>
+        <th>Quantity</th>
+        <th>Current Price</th>
+        <th>Total Value</th>
+        <th>Profit/Loss</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stock of portfolio">
+        <td>{{ stock.name }}</td>
+        <td>{{ stock.symbol }}</td>
+        <td>{{ stock.quantity }}</td>
+        <td>{{ stock.price | currency }}</td>
+        <td>{{ stock.totalValue | currency }}</td>
+        <td [ngClass]="stock.profit >= 0 ? 'profit' : 'loss'">
+          {{ stock.profit >= 0 ? '+' : '' }}{{ stock.profit | currency }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,132 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #222831;
+    color: #EEEEEE;
+    line-height: 1.6;
+  }
+  
+  /* Navbar */
+  .navbar {
+    padding: 1rem 2rem;
+    background-color: #393E46;
+    color: #F66B34;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  /* Portfolio Section */
+.portfolio-container {
+    padding: 2rem 3rem; /* Added horizontal spacing */
+  }
+  
+  /* Portfolio Heading */
+  .portfolio-heading {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #F66B34;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  /* Summary Cards */
+  .portfolio-summary {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .summary-card {
+    flex: 1;
+    background-color: #393E46;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(250, 250, 250, 0.676); /* Consistent shadow with Transactions table */
+    transition: transform 0.2s ease;
+  }
+  
+  .summary-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .summary-card h3 {
+    color: #F66B34;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .summary-card p {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 0.3rem;
+  }
+  
+ /* First card with image filling entire card */
+.first-card {
+    flex: 1;
+    height: 120px; /* same as other cards */
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(245, 242, 242, 0.811);
+    transition: transform 0.2s ease;
+}
+
+.first-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ensures image fills card without stretching */
+}
+
+.first-card:hover {
+    transform: translateY(-5px);
+}
+
+  
+  /* Portfolio Table */
+  .portfolio-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #393E46;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 12px rgba(245, 242, 242, 0.811); /* Same shadow as Transactions table */
+  }
+  
+  .portfolio-table th,
+  .portfolio-table td {
+    padding: 1rem;
+    text-align: left;
+  }
+  
+  .portfolio-table th {
+    background-color: #F66B34;
+    color: #222831;
+    font-size: 1rem;
+  }
+  
+  .portfolio-table tr:nth-child(even) {
+    background-color: #2E333A;
+  }
+  
+  .portfolio-table tr:hover {
+    background-color: #444B53;
+  }
+  
+  /* Profit/Loss Colors */
+  .profit {
+    color: #4CAF50; /* Green */
+    font-weight: bold;
+  }
+  
+  .loss {
+    color: #F66B34; /* Orange for loss */
+    font-weight: bold;
+  }
+  

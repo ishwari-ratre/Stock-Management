@@ -48,6 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
                     && !request.getRequestURI().contains("/api/auth/register")) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("Authorization header missing");
+                System.out.println(request.getRequestURI()+ "not allowed cox no token");
                 return;
             }
         }

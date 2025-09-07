@@ -19,4 +19,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     List<Transaction> findByCustomerAndStock(Customer customer, Stock stock);
 
     List<Transaction> findByCustomerAndStockAndType(Customer customer, Stock stock, TransactionType transactionType);
+
+    List<Transaction> findTop3ByCustomer_EmailIdOrderByTimestampDesc(String emailId);
 }

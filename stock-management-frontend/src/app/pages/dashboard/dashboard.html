@@ -1,0 +1,102 @@
+<!-- Profile Section -->
+<section class="profile">
+  <div class="profile-left">
+    <img src="profile_pic.png" alt="Profile Picture" class="profile-img" />
+    <h2>Welcome back, <span>{{ username }}</span></h2>
+  </div>
+  <button class="btn-edit" (click)="openModal()">Edit Profile</button>
+</section>
+
+<!-- Edit Profile Modal -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <span class="close-btn" (click)="closeModal()">&times;</span>
+
+    <div class="modal-header">
+      <img src="profile_pic.png" alt="Profile" class="modal-profile-img" />
+      <h2>Edit Profile</h2>
+    </div>
+
+    <form (ngSubmit)="saveProfile()">
+      <label for="email">Email:</label>
+      <input type="email" id="email" [(ngModel)]="profile.email" name="email" readonly />
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" [(ngModel)]="profile.name" name="name" required />
+
+      <label for="city">City:</label>
+      <input type="text" id="city" [(ngModel)]="profile.city" name="city" required />
+
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="text" id="phoneNumber" [(ngModel)]="profile.phoneNumber" name="phoneNumber" required />
+
+      <button type="submit" class="btn-login">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<!-- Dashboard Container -->
+<main class="dashboard">
+  <section class="wallet">
+    <div class="wallet-content">
+      <div class="wallet-left">
+        <img src="wallet.png" alt="Wallet" class="wallet-img" />
+      </div>
+      <div class="wallet-right">
+        <h2><i class="fas fa-wallet"></i> Wallet Balance</h2>
+        <p>{{ walletBalance | currency:'INR' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio">
+    <div class="portfolio-content">
+      <div class="portfolio-left">
+        <img src="portfolio.png" alt="Portfolio" class="portfolio-img" />
+      </div>
+      <div class="portfolio-right">
+        <h2><i class="fas fa-folder-open"></i> Portfolio</h2>
+        <p>Total Value: {{ portfolioValue | currency:'INR' }}</p>
+        <p>Invested: {{ portfolioInvested | currency:'INR' }}</p>
+        <p>Gain/Loss: {{ portfolioGainLoss | currency:'INR' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="transactions">
+    <div class="section-header">
+      <img src="transaction.png" alt="Transactions" class="section-icon" />
+      <h2><i class="fas fa-receipt"></i> Recent Transactions</h2>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Stock</th>
+          <th>Type</th>
+          <th>Qty</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of transactions">
+          <td>{{ t.date }}</td>
+          <td>{{ t.stock }}</td>
+          <td>{{ t.type }}</td>
+          <td>{{ t.qty }}</td>
+          <td>{{ t.price | currency:'INR' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="market">
+    <div class="section-header">
+      <img src="market.png" alt="Market" class="section-icon" />
+      <h2><i class="fas fa-chart-line"></i> Market Overview</h2>
+    </div>
+    <ul>
+      <li *ngFor="let m of marketList">{{ m.name }} - {{ m.value }}</li>
+    </ul>
+  </section>
+</main>

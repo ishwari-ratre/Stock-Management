@@ -1,0 +1,171 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #222831;
+  color: #EEEEEE;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  padding: 1rem 2rem;
+  background-color: #393E46;
+  color: #F66B34;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Transactions Section */
+.transactions-container {
+  padding: 2rem 3rem;
+}
+.transaction-heading {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #F66B34;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Top Summary Section */
+.transactions-summary {
+  display: flex;
+  gap: 1.5rem;
+  justify-content:space-evenly;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+/* Common Card Style */
+.summary-card {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+  background-color: #393E46;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(250, 250, 250, 0.676);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*  */
+  transition: transform 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image Card */
+.image-card {
+  padding: 0;
+  height: 300px;
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Stats Card */
+.stats-card h3 {
+  color: #F66B34;
+  margin-bottom: 1rem;
+}
+.stat-row span{
+    color: #34f641;
+    font-size: 1.2rem;
+    /* margin-bottom: 0.5rem; */
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.4rem 0;
+  font-size: 1rem;
+}
+
+/* Filters Card */
+.filters-card h3 {
+  color: #F66B34;
+  margin-bottom: 1rem;
+}
+
+.filter-group {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  display: block;
+  color: #F66B34;
+}
+
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #2E333A;
+  color: #EEEEEE;
+  font-size: 0.9rem;
+}
+
+.filter-group input::placeholder {
+  color: #AAAAAA;
+}
+
+/* Table */
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: #393E46;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 12px rgba(250, 250, 250, 0.676);
+}
+
+.transactions-table th,
+.transactions-table td {
+  padding: 1rem;
+  text-align: left;
+}
+
+.transactions-table th {
+  background-color: #F66B34;
+  color: #222831;
+  font-size: 1rem;
+}
+
+.transactions-table tr:nth-child(even) {
+  background-color: #2E333A;
+}
+
+.transactions-table tr:hover {
+  background-color: #444B53;
+}
+
+/* Type column colors */
+.type-buy {
+  color: #4CAF50; /* Green */
+  font-weight: bold;
+}
+
+.type-sell {
+  color: #F66B34; /* Orange */
+  font-weight: bold;
+}

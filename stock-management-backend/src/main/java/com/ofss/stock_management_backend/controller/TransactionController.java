@@ -3,7 +3,7 @@ package com.ofss.stock_management_backend.controller;
 import com.ofss.stock_management_backend.dto.TradeRequest;
 import com.ofss.stock_management_backend.model.Transaction;
 import com.ofss.stock_management_backend.service.TransactionService;
-
+import com.ofss.stock_management_backend.util.JwtUtil;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.*;
 public class TransactionController {
 
     private final TransactionService transactionService;
+    private final JwtUtil jwtUtil;
 
-    public TransactionController(TransactionService transactionService) {
+    public TransactionController(TransactionService transactionService, JwtUtil jwtUtil) {
         this.transactionService = transactionService;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/buy")
@@ -48,14 +50,18 @@ public class TransactionController {
     }
 
     // Get all transaction history
-    @GetMapping("/history/{email}")
-    public ResponseEntity<List<Transaction>> getTransactionHistory(@PathVariable String email) {
+    @GetMapping("/history")
+    public ResponseEntity<List<Transaction>> getTransactionHistory(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(token);
         return ResponseEntity.ok(transactionService.getTransactionHistory(email));
     }
 
     // Get portfolio (current holdings)
-    @GetMapping("/portfolio/{email}")
-    public ResponseEntity<Map<String, Integer>> getPortfolio(@PathVariable String email) {
+    @GetMapping("/portfolio")
+    public ResponseEntity<Map<String, Integer>> getPortfolio(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(token);
         return ResponseEntity.ok(transactionService.getPortfolio(email));
     }
 }

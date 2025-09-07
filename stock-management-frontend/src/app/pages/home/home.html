@@ -16,23 +16,22 @@
     <nav>
       <ul class="nav-links">
       <!-- Show only when logged in -->
-      <li *ngIf="authService.isLoggedIn()"><a href="#">Home</a></li>
-      <li *ngIf="authService.isLoggedIn()"><a href="#">About</a></li>
-      <li *ngIf="authService.isLoggedIn()"><a href="#">Services</a></li>
-      <li *ngIf="authService.isLoggedIn()"><a href="#">Contact</a></li>
+      <li *ngIf="authService.isLoggedIn()"><a routerLink="/dashboard">DashBoard</a></li>
+      <li *ngIf="authService.isLoggedIn()"><a routerLink="/stock">Stocks</a></li>
+      <li *ngIf="authService.isLoggedIn()"><a routerLink="/transaction">Transaction</a></li>
+      <li *ngIf="authService.isLoggedIn()"><a routerLink="/portfolio">Portfolio</a></li>
       </ul>
     </nav>
     <div>
     <!-- Show only when NOT logged in -->
     <a *ngIf="!authService.isLoggedIn()" routerLink="/register" class="btn-signup">Sign Up</a>
     <a *ngIf="!authService.isLoggedIn()" routerLink="/login" class="btn-signup">Login</a>
-    <a *ngIf="authService.isLoggedIn()" routerLink="/register" class="btn-signup">Profile</a>
     <a *ngIf="authService.isLoggedIn()" (click)="logout()" class="btn-signup">Logout</a>
     </div>
   </header>
   <hr>
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" *ngIf="!authService.isLoggedIn()">
     <div class="hero-text">
       <h1><span>Welcome to</span> <br>INVEST ONE</h1>
       <p>
@@ -46,5 +45,6 @@
         <img src="vecteezy_time-saving-ideas-money-saving-business-and-management-time_5610761.svg" alt="Stock Market Illustration">
     </div>
   </section>
+  <router-outlet *ngIf="authService.isLoggedIn()"></router-outlet>
 </body>
 </html>

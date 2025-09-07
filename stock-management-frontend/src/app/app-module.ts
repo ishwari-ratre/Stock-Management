@@ -5,11 +5,13 @@ import { App } from './app';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt';
-
 // Standalone components
 import { Home } from './pages/home/home';
-import { Register } from './pages/register/register';
 import { Login } from './pages/login/login';
+import { Transaction } from './pages/transaction/transaction';
+import { Stock } from './pages/stock/stock';
+import { Chat } from './pages/chat/chat';
+import { Portfolio } from './pages/portfolio/portfolio';
 
 @NgModule({
   imports: [
@@ -18,14 +20,22 @@ import { Login } from './pages/login/login';
     FormsModule,
     ReactiveFormsModule,
     Home,
-    Register,
     Login,
+    Notification,
+    Transaction,
+    Stock,
+    Chat
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(),
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
-  bootstrap: [App]
+  bootstrap: [App],
+  declarations: [
+    Transaction,
+    Stock,
+    Portfolio
+  ]
 })
 export class AppModule { }

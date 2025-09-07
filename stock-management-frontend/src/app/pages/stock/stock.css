@@ -1,0 +1,131 @@
+body {
+  background: #000;
+  color: #fff;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: auto;
+}
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 300px;
+  background: #111;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.filters {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filters input, .filters select {
+  background: #222;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  padding: 8px;
+}
+
+.stock-scroll {
+  margin-top: 15px;
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 4px;
+}
+
+.stock-card {
+  background: #1e1e1e;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 8px rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stock-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(214,90,49,0.4);
+}
+
+.stock-card.active {
+  border: 2px solid #D65A31;
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stock-meta {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.positive { color: #4caf50; }
+.negative { color: #f44336; }
+
+.chart-section {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.chart-title {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #D65A31;
+}
+
+.range-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.range-buttons button {
+  background: #333;
+  border: none;
+  color: #fff;
+  padding: 7px 14px;
+  margin: 0 4px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.range-buttons button:hover {
+  background: #555;
+}
+.green {
+  color: #4caf50;
+  font-weight: bold;
+}
+.red {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.filter-controls select {
+  background: #222;
+  color: #fff;
+  padding: 8px;
+  border: 1px solid #444;
+  border-radius: 6px;
+}
+
+.stock-list {
+  width: 320px;
+  overflow-y: auto;
+  height: 100vh;
+  background: #111;
+  padding: 20px;
+}
