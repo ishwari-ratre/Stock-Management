@@ -36,7 +36,8 @@ public class AuthController {
         Customer customer = customerService.authenticate(email, password);
         if (customer != null) {
             String token = jwtUtil.generateToken(email);
-            return ResponseEntity.ok("Login successful! Your JWT token: " + token);
+            return ResponseEntity.ok().header("Content-Type", "text/plain;charset=UTF-8")
+                    .body("Login successful! Your JWT token: " + token);
         } else {
             return ResponseEntity.status(401).body("Invalid credentials!");
         }

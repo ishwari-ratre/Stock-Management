@@ -1,0 +1,158 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  /* Auth Container with animated gradient background */
+  .auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    height:100vh;
+    background: linear-gradient(270deg, #222831, #2c2c2c, #1a1a1a, #222831);
+    background-size: 800% 800%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+  
+  /* Gradient Animation */
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Auth Box */
+  .auth-box {
+    background: #1f1f1f;
+    padding: 20px 70px;
+    border-radius: 25px;
+    box-shadow: 0 0 25px rgba(255,255,255,0.2), 0 0 50px rgba(255,255,255,0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+  }
+  
+  /* Logo */
+  .auth-logo img {
+    height: 100px;
+    background: #EEEEEE;
+    padding: 4px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    margin-bottom: 10px;
+  }
+  
+  .auth-logo h1 {
+    font-size: 36px;
+    color: #EEEEEE;
+    margin-bottom: 10px;
+  }
+  
+  /* Toggle Buttons */
+  .auth-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+  
+  .auth-toggle button {
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: 2px solid black;
+    background-color: #F66B34;
+    color: #EEEEEE;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .auth-toggle button.active, .auth-toggle button:hover {
+    background-color: #09bd09;
+    color: #FFFFFF;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+  }
+  
+  /* Forms */
+  .auth-box form input {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    border:2px solid black;
+    border-radius: 25px;
+    background-color: #5b5958;
+    color: #f6efef;
+    font-size: 16px;
+    font-weight: 700;
+    outline: none;
+    transition: background 0.3s ease;
+  }
+  
+  .auth-box form input::placeholder {
+    color: #bdb8b8;
+  }
+  
+  /* Glow Animations */
+  @keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(255,255,255,0.3); }
+    50% { box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+    100% { box-shadow: 0 0 5px rgba(255,255,255,0.3); }
+  }
+  
+  /* Inputs with glow on focus */
+  .auth-box form input:focus {
+    outline: none;
+    border: 1px solid #FFFFFF;
+    animation: glow 1.5s infinite alternate;
+  }
+  
+  /* Buttons with animated glow */
+  .auth-box form button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 25px;
+    background-color: #F66B34; 
+    color: #FFFFFF;
+    font-weight:bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 20px rgba(255,255,255,0.1);
+  }
+  
+  .auth-box form button:hover {
+    background: #FFFFFF;
+    color: black;
+    animation: glow 1.5s infinite alternate;
+    box-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.3);
+  }
+  
+  .auth-box p {
+    color: #CCCCCC;
+    margin-top: 6px;
+  }
+  
+  .auth-box p a {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+  
+  .auth-box p a:hover {
+    color: #AAAAAA;
+  }
+  

@@ -28,8 +28,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-            System.out.println("---------------the token received is-----");
-            System.out.println(token);
 
             if (jwtUtil.validateToken(token)) {
                 // ✅ Create authentication object and set it
@@ -40,7 +38,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 );
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                System.out.println("Validation failed for the token");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("Invalid or expired JWT token");
                 return;

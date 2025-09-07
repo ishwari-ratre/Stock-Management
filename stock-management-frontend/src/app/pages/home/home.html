@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Market Landing Page</title>
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+    <img src="Stock_logo.png" alt="InvestOne Logo">
+    <h1>InvestOne</h1>
+    </div>
+    <nav>
+      <ul class="nav-links">
+      <!-- Show only when logged in -->
+      <li *ngIf="authService.isLoggedIn()"><a href="#">Home</a></li>
+      <li *ngIf="authService.isLoggedIn()"><a href="#">About</a></li>
+      <li *ngIf="authService.isLoggedIn()"><a href="#">Services</a></li>
+      <li *ngIf="authService.isLoggedIn()"><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+    <!-- Show only when NOT logged in -->
+    <a *ngIf="!authService.isLoggedIn()" routerLink="/register" class="btn-signup">Sign Up</a>
+    <a *ngIf="!authService.isLoggedIn()" routerLink="/login" class="btn-signup">Login</a>
+    <a *ngIf="authService.isLoggedIn()" routerLink="/register" class="btn-signup">Profile</a>
+    <a *ngIf="authService.isLoggedIn()" (click)="logout()" class="btn-signup">Logout</a>
+    </div>
+  </header>
+  <hr>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1><span>Welcome to</span> <br>INVEST ONE</h1>
+      <p>
+        Invest. Hold. Prosper.
+      </p>
+      <a routerLink="/register" class="btn-register">Register</a>
+    </div>
+
+    
+    <div class="hero-image">
+        <img src="vecteezy_time-saving-ideas-money-saving-business-and-management-time_5610761.svg" alt="Stock Market Illustration">
+    </div>
+  </section>
+</body>
+</html>

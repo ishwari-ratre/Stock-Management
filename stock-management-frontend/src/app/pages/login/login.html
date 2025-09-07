@@ -1,0 +1,41 @@
+<div class="auth-container">
+  <div class="auth-box">
+
+    <!-- Logo -->
+    <div class="auth-logo">
+      <img src="Stock_logo.png" alt="InvestOne Logo">
+      <h1>InvestOne</h1>
+    </div>
+
+    <!-- Toggle Buttons -->
+    <div class="auth-toggle">
+      <button (click)="showLoginForm()" [class.active]="isLoginMode">Login</button>
+      <button (click)="showRegisterForm()" [class.active]="!isLoginMode">Register</button>
+    </div>
+
+    <!-- Login Form -->
+    <form *ngIf="isLoginMode" (ngSubmit)="onLogin()">
+      <input type="email" placeholder="Email" [(ngModel)]="loginData.email" name="email" required>
+      <input type="password" placeholder="Password" [(ngModel)]="loginData.password" name="password" required>
+      <button type="submit" class="btn-login">Login</button>
+      <p>Don't have an account? 
+        <a href="#" (click)="showRegisterForm(); $event.preventDefault()">Register</a>
+      </p>
+    </form>
+
+    <!-- Register Form -->
+    <form *ngIf="!isLoginMode" (ngSubmit)="onRegister()">
+      <input type="text" placeholder="Name" [(ngModel)]="registerData.name" name="name" required>
+      <input type="email" placeholder="Email" [(ngModel)]="registerData.email" name="email" required>
+      <input type="password" placeholder="Password" [(ngModel)]="registerData.password" name="password" required>
+      <input type="text" placeholder="City" [(ngModel)]="registerData.city" name="city" required>
+      <input type="tel" placeholder="Phone Number" [(ngModel)]="registerData.phone" name="phone" required>
+      <button type="submit" class="btn-register-page">Register</button>
+      <p>Already have an account? 
+        <a href="#" (click)="showLoginForm(); $event.preventDefault()">Login</a>
+      </p>
+    </form>
+
+  </div>
+</div>
+
