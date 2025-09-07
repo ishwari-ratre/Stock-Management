@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Notification } from '../../services/notification';
 
 interface TransactionEntry {
   id: string;
@@ -15,26 +17,48 @@ interface TransactionEntry {
 @Component({
   selector: 'app-transaction',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './transaction.html',
   styleUrls: ['./transaction.css']
 })
 export class Transaction implements OnInit {
 
-  transactions: TransactionEntry[] = [
-    { id: "TXN001", name: "Apple Inc", symbol: "AAPL", quantity: 10, price: 180, type: "buy", timestamp: "2025-09-01 10:23" },
-    { id: "TXN002", name: "Tesla", symbol: "TSLA", quantity: 5, price: 250, type: "sell", timestamp: "2025-09-02 12:45" },
-    { id: "TXN003", name: "Amazon", symbol: "AMZN", quantity: 3, price: 3200, type: "buy", timestamp: "2025-09-03 09:15" },
-    { id: "TXN004", name: "Google", symbol: "GOOGL", quantity: 8, price: 2800, type: "sell", timestamp: "2025-09-04 14:05" }
-  ];
-
+  transactions: TransactionEntry[] = [];
   filteredTransactions: TransactionEntry[] = [];
 
   filterType: string = 'all';
   searchStock: string = '';
 
+  constructor(
+    private http: HttpClient,
+    private notification: Notification
+  ) {}
+
   ngOnInit(): void {
-    this.applyFilters();
+    this.fetchTransactions();
+  }
+
+  fetchTransactions(): void {
+    this.http.get<any[]>('http://localhost:3000/api/transaction/history')
+      .subscribe({
+        next: (data) => {
+          // Map backend response to frontend model
+          this.transactions = data.map(txn => ({
+            id: txn.transactionId,
+            name: txn.stock.name,
+            symbol: txn.stock.symbol,
+            quantity: txn.quantity,
+            price: txn.priceAtTransaction || txn.stock.basePrice, // fallback if priceAtTransaction is 0
+            type: txn.type.toLowerCase() === 'buy' ? 'buy' : 'sell',
+            timestamp: new Date(txn.timestamp).toLocaleString()
+          }));
+          this.applyFilters();
+        },
+        error: (err) => {
+          this.notification.error("Cannot fetch transaction data");
+          console.error('Error fetching transactions:', err);
+        }
+      });
   }
 
   applyFilters(): void {

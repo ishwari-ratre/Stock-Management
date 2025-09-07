@@ -1,5 +1,6 @@
 package com.ofss.stock_management_backend.controller;
 
+import com.ofss.stock_management_backend.dto.PortfolioResponse;
 import com.ofss.stock_management_backend.dto.TradeRequest;
 import com.ofss.stock_management_backend.model.Transaction;
 import com.ofss.stock_management_backend.service.TransactionService;
@@ -9,6 +10,8 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,6 +28,9 @@ public class TransactionController {
 
     @PostMapping("/buy")
     public ResponseEntity<?> buyStock(@RequestBody TradeRequest tradeRequest) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName(); // Extracted from JWT subject
+        tradeRequest.setEmail(email);//put email extracted from token
         try {
             Transaction transaction = transactionService.buyStock(tradeRequest);
             return ResponseEntity.ok(transaction);
@@ -38,6 +44,9 @@ public class TransactionController {
 
     @PostMapping("/sell")
     public ResponseEntity<?> sellStock(@RequestBody TradeRequest tradeRequest) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName(); // Extracted from JWT subject
+        tradeRequest.setEmail(email);//put email extracted from token
         try {
             Transaction transaction = transactionService.sellStock(tradeRequest);
             return ResponseEntity.ok(transaction);
@@ -59,9 +68,9 @@ public class TransactionController {
 
     // Get portfolio (current holdings)
     @GetMapping("/portfolio")
-    public ResponseEntity<Map<String, Integer>> getPortfolio(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<List<PortfolioResponse>> getPortfolio(@RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");
         String email = jwtUtil.extractEmail(token);
-        return ResponseEntity.ok(transactionService.getPortfolio(email));
+        return ResponseEntity.ok(transactionService.getPortfolioDetails(email));
     }
 }

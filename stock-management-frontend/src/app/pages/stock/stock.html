@@ -43,5 +43,36 @@
             <button (click)="setRange(90)">90 Days</button>
         </div>
         <canvas baseChart [data]="chartData" [options]="chartOptions" type="line"></canvas>
+        <!-- Buy/Sell Buttons -->
+        <div class="action-buttons" *ngIf="selectedStock">
+            <button (click)="openPopup('buy')">Buy Stock</button>
+            <button (click)="openPopup('sell')">Sell Stock</button>
+        </div>
     </section>
+    <!-- Buy Popup -->
+    <div class="popup" *ngIf="showBuyPopup">
+    <div class="popup-content">
+        <span class="close" (click)="closePopup('buy')">&times;</span>
+        <h2>Buy Stock</h2>
+        <form (ngSubmit)="confirmBuy()">
+        <input type="text" placeholder="Stock Symbol" [(ngModel)]="buySymbol" name="buySymbol" required readonly>
+        <input type="number" placeholder="Quantity" [(ngModel)]="buyQuantity" name="buyQuantity" required>
+        <input type="number" placeholder="Price per Share" [(ngModel)]="buyPrice" name="buyPrice" required>
+        <button type="submit">Confirm Buy</button>
+        </form>
+    </div>
+    </div>
+
+    <!-- Sell Popup -->
+    <div class="popup" *ngIf="showSellPopup">
+    <div class="popup-content">
+        <span class="close" (click)="closePopup('sell')">&times;</span>
+        <h2>Sell Stock</h2>
+        <form (ngSubmit)="confirmSell()">
+        <input type="text" placeholder="Stock Symbol" [(ngModel)]="sellSymbol" name="sellSymbol" required readonly>
+        <input type="number" placeholder="Quantity" [(ngModel)]="sellQuantity" name="sellQuantity" required>
+        <input type="number" placeholder="Price per Share" [(ngModel)]="sellPrice" name="sellPrice" required>
+        <button type="submit">Confirm Sell</button>
+        </form>
+    </div>
 </div>

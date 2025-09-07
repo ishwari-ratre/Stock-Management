@@ -33,6 +33,14 @@
     margin-bottom: 2rem;
     text-align: center;
   }
+
+  /* -------------icon-------------------- */
+.icon-img {
+  width: 90px;      /* adjust size */
+  height: 90px;
+  vertical-align: middle; /* aligns with text */
+  margin-right: 5px;      /* space between icon and text */
+}
   
   /* Summary Cards */
   .portfolio-summary {

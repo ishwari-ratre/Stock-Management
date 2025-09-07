@@ -1,37 +1,75 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Notification } from '../../services/notification';
 
-interface Stock {
+interface PortfolioResponse {
+  stock: {
+    stockId: number;
+    symbol: string;
+    basePrice: number;
+    industry: string;
+    colorTag: string | null;
+    name: string;
+  };
+  quantity: number;
+  currentPrice: number;
+  avgPriceAtTransaction: number;
+  totalValue: number;
+  profitLoss: number;
+}
+
+interface StockView {
   name: string;
   symbol: string;
   quantity: number;
-  price: number;
-  totalValue: number;
-  profit: number;
+  price: number;       // current price
+  totalValue: number;  // quantity * price
+  profit: number;      // profit/loss
 }
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.html',
   styleUrls: ['./portfolio.css'],
-  standalone:true,
-  imports: [CommonModule, FormsModule, HttpClientModule,]
+  standalone: true,
+  imports: [CommonModule, FormsModule, HttpClientModule]
 })
 export class Portfolio implements OnInit {
-  portfolio: Stock[] = [
-    { name: "Apple Inc", symbol: "AAPL", quantity: 10, price: 180, totalValue: 1800, profit: 200 },
-    { name: "Tesla", symbol: "TSLA", quantity: 5, price: 250, totalValue: 1250, profit: -50 },
-    { name: "Amazon", symbol: "AMZN", quantity: 3, price: 3200, totalValue: 9600, profit: 500 },
-    { name: "Google", symbol: "GOOGL", quantity: 8, price: 2800, totalValue: 22400, profit: 1200 }
-  ];
-
+  portfolio: StockView[] = [];
   totalValue: number = 0;
   totalProfit: number = 0;
 
+  constructor(
+    private http: HttpClient,
+    private notification: Notification
+  ) {}
+
   ngOnInit(): void {
-    this.calculateSummary();
+    this.fetchPortfolio();
+  }
+
+  fetchPortfolio(): void {
+    this.http.get<PortfolioResponse[]>('http://localhost:3000/api/transaction/portfolio')
+      .subscribe({
+        next: (data) => {
+          // map backend response to frontend StockView
+          this.portfolio = data.map(item => ({
+            name: item.stock.name,
+            symbol: item.stock.symbol,
+            quantity: item.quantity,
+            price: item.currentPrice,
+            totalValue: item.totalValue,
+            profit: item.profitLoss
+          }));
+          this.calculateSummary();
+        },
+        error: (err) => {
+          this.notification.error("could not fetch data");
+          console.error('Error fetching portfolio:', err);
+        }
+      });
   }
 
   calculateSummary(): void {

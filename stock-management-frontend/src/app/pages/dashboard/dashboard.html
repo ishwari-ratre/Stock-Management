@@ -56,7 +56,6 @@
       </div>
       <div class="portfolio-right">
         <h2><i class="fas fa-folder-open"></i> Portfolio</h2>
-        <p>Total Value: {{ portfolioValue | currency:'INR' }}</p>
         <p>Invested: {{ portfolioInvested | currency:'INR' }}</p>
         <p>Gain/Loss: {{ portfolioGainLoss | currency:'INR' }}</p>
       </div>
@@ -76,15 +75,17 @@
           <th>Type</th>
           <th>Qty</th>
           <th>Price</th>
+          <th>Total Value</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let t of transactions">
-          <td>{{ t.date }}</td>
-          <td>{{ t.stock }}</td>
+          <td>{{ t.timestamp | date:'short' }}</td>
+          <td>{{ t.stockName }} ({{ t.stockName }})</td>
           <td>{{ t.type }}</td>
-          <td>{{ t.qty }}</td>
+          <td>{{ t.quantity }}</td>
           <td>{{ t.price | currency:'INR' }}</td>
+          <td>{{ t.quantity * t.price | currency:'INR' }}</td>
         </tr>
       </tbody>
     </table>

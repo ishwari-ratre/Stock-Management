@@ -1,8 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Notification } from '../../services/notification';
+
+interface DashboardTransaction {
+  transactionId: number;
+  stockName: string;
+  symbol: string;
+  quantity: number;
+  price: number;
+  totalValue: number;
+  timestamp: string;
+  type: string;
+  priceAtTransaction:number;
+
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -14,19 +27,16 @@ import { Notification } from '../../services/notification';
 export class Dashboard implements OnInit {
   username = '';
   walletBalance = 0;
-  portfolioValue = 0;
   portfolioInvested = 0;
   portfolioGainLoss = 0;
-  transactions: any[] = [];
+  transactions: DashboardTransaction[] = [];
   marketList: any[] = [];
-  profile = { email: '',name:'', city: '', phoneNumber: 0 };
+  profile = { email: '', name: '', city: '', phoneNumber: 0 };
   showModal = false;
   loading = false;
   errorMessage = '';
-  constructor(
-    private http: HttpClient,
-    private notification: Notification,
-  ) {}
+
+  constructor(private http: HttpClient, private notification: Notification) {}
 
   ngOnInit() {
     this.fetchDashboard();
@@ -35,20 +45,30 @@ export class Dashboard implements OnInit {
   fetchDashboard() {
     this.loading = true;
     this.errorMessage = '';
-    const token = localStorage.getItem('token')
-    console.log(token);
+
     this.http.get<any>('http://localhost:3000/api/dashboard/details').subscribe({
       next: (res) => {
         this.username = res.customer.firstName;
         this.walletBalance = res.walletBalance ?? 0;
-        this.portfolioValue = res.portfolioValue ?? 0;
         this.portfolioInvested = res.invested ?? 0;
         this.portfolioGainLoss = res.profitLoss ?? 0;
-        this.transactions = res.lastTransactions ?? [];
+
+        // Map API transactions to frontend-friendly structure
+        this.transactions = (res.lastTransactions ?? []).map((txn: any) => ({
+          transactionId: txn.transactionId,
+          stockName: txn.stock.name,
+          symbol: txn.stock.symbol,
+          quantity: txn.quantity,
+          price: txn.priceAtTransaction,
+          totalValue: txn.quantity * (txn.priceAtTransaction || txn.stock.basePrice),
+          timestamp: txn.timestamp,
+          type:txn.type,
+        }));
+
         this.marketList = res.market ?? [];
         this.profile = {
           email: res.customer.emailId,
-          name: `${res.customer.firstName} ${res.customer.lastName}`,
+          name: `${res.customer.firstName} ${res.customer.lastName ?? ''}`.trim(),
           city: res.customer.city,
           phoneNumber: res.customer.phoneNumber,
         };
@@ -56,7 +76,9 @@ export class Dashboard implements OnInit {
         this.loading = false;
       },
       error: (err) => {
+        this.loading = false;
         this.notification.error(err);
+        console.error('Error fetching dashboard details', err);
       },
     });
   }
@@ -72,14 +94,13 @@ export class Dashboard implements OnInit {
   saveProfile() {
     this.http.patch('http://localhost:3000/api/customers/update', this.profile).subscribe({
       next: () => {
-        this.notification.success("profile updated")
+        this.notification.success('Profile updated');
         this.username = this.profile.name.split(' ')[0];
         this.closeModal();
       },
       error: (err) => {
-        this.notification.error("could not update profile details")
+        this.notification.error('Could not update profile details');
         console.error('Profile update failed', err);
-        alert(err.error?.message || 'Could not update profile.');
       },
     });
   }

@@ -33,6 +33,20 @@ body {
   text-align: center;
 }
 
+.icon-img {
+  width: 90px;      /* adjust size */
+  height: 90px;
+  vertical-align: middle; /* aligns with text */
+  margin-right: 5px;      /* space between icon and text */
+}
+
+.filter-icon {
+  width: 40px;          /* adjust size */
+  height: 40px;
+  vertical-align: middle; /* aligns with text */
+  margin-right: 6px;     /* spacing between image and text */
+}
+
 /* Top Summary Section */
 .transactions-summary {
   display: flex;

@@ -248,6 +248,14 @@
     text-align: center;
     border-bottom: 1px solid #444;
   }
+  th{
+  background-color: #F66B34;
+  color: #222831;
+  font-size: 1rem;
+}
+  .table tr:nth-child(even) {
+    background-color: #2E333A;
+  }
   
   tr:hover {
     background-color: #333;

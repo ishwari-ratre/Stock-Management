@@ -1,9 +1,6 @@
-<header class="navbar">
-  <h2>InvestOne</h2>
-</header>
-
 <section class="transactions-container">
-  <h1 class="transaction-heading">📈 Your Transaction</h1>
+   <h1 class="transaction-heading"><img src="transpage.png" alt="Transaction Icon" class="icon-img">
+      Your Transaction</h1>
 
   <!-- Top Section with Cards -->
   <div class="transactions-summary">
@@ -15,7 +12,10 @@
 
     <!-- Stats Card -->
     <div class="summary-card stats-card">
-      <h3>📊 Transaction Summary</h3>
+      <h3>
+          <img src="market.png" alt="Transaction Icon" class="filter-icon">
+          Transaction Summary
+        </h3>
       <div class="stat-row">
         <span>Total Transactions:</span>
         <span>{{ filteredTransactions.length }}</span>
@@ -32,7 +32,10 @@
 
     <!-- Filters Card -->
     <div class="summary-card filters-card">
-      <h3>🔎 Filters</h3>
+     <h3>
+          <img src="filter.png" alt="Filter Icon" class="filter-icon">
+          Filters
+        </h3>
       <div class="filter-group">
         <label for="filterType">Transaction Type</label>
         <select id="filterType" [(ngModel)]="filterType" (change)="applyFilters()">

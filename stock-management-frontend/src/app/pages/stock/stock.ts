@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
-
+import { Notification } from '../../services/notification';
 
 @Component({
   selector: 'app-stock',
@@ -55,7 +55,10 @@ export class Stock implements OnInit {
   priceOrder: 'high' | 'low' | '' = '';
 
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private notification: Notification
+  ) { }
 
   ngOnInit(): void {
     this.fetchStocksWithHistory();
@@ -169,4 +172,89 @@ export class Stock implements OnInit {
     this.selectedRange = days;
     this.renderChart(days);
   }
+
+
+  //logic for buy/sell
+
+  // Popup flags
+  showBuyPopup: boolean = false;
+  showSellPopup: boolean = false;
+
+  // Buy/Sell form fields
+  buySymbol: string = '';
+  buyQuantity: number | null = null;
+  buyPrice: number | null = null;
+
+  sellSymbol: string = '';
+  sellQuantity: number | null = null;
+  sellPrice: number | null = null;
+
+  // Open popup
+  openPopup(type: 'buy' | 'sell') {
+    if (!this.selectedStock) return;
+
+    if (type === 'buy') {
+      this.buySymbol = this.selectedStock.symbol;
+      this.buyPrice = this.selectedStock.currentPrice;
+      this.showBuyPopup = true;
+    } else {
+      this.sellSymbol = this.selectedStock.symbol;
+      this.sellPrice = this.selectedStock.currentPrice;
+      this.showSellPopup = true;
+    }
+  }
+
+  // Close popup
+  closePopup(type: 'buy' | 'sell') {
+    if (type === 'buy') this.showBuyPopup = false;
+    else this.showSellPopup = false;
+  }
+
+// Confirm Buy
+  confirmBuy() {
+    if (!this.buyQuantity || this.buyQuantity <= 0) return alert('Enter valid quantity');
+
+    const payload = {
+      symbol: this.buySymbol,
+      quantity: this.buyQuantity,
+      email:''
+    };
+
+    // POST request to buy endpoint, JWT will be attached automatically via interceptor
+    this.http.post('http://localhost:3000/api/transaction/buy', payload).subscribe({
+      next: (res) => {
+        this.notification.success("purchase complete")
+        this.showBuyPopup = false;
+      },
+      error: (err) => {
+        this.notification.error("problem purchasing stock")
+        console.error('Buy failed:', err);
+      }
+    });
+  }
+
+  // Confirm Sell
+  confirmSell() {
+    if (!this.sellQuantity || this.sellQuantity <= 0) return alert('Enter valid quantity');
+
+    const payload = {
+      symbol: this.sellSymbol,
+      quantity: this.sellQuantity,
+      email:''
+    };
+
+    // POST request to sell endpoint, JWT will be attached automatically via interceptor
+    this.http.post('http://localhost:3000/api/transaction/sell', payload).subscribe({
+      next: (res) => {
+        console.log('Sell success:', res);
+        this.notification.success("stock sold")
+        this.showSellPopup = false;
+      },
+      error: (err) => {
+        this.notification.error("problem selling stock")
+        console.error('Sell failed:', err);
+      }
+    });
+  }
+
 }

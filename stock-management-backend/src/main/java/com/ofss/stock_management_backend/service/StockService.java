@@ -316,4 +316,18 @@ public class StockService {
     private double round(double value) {
         return Math.round(value * 100.0) / 100.0;
     }
+    //get latest price in double 
+    public double getLatestPriceValue(String symbol) {
+        Stock stock = sr.findBySymbol(symbol);
+        if (stock == null) {
+            throw new RuntimeException("Stock not found: " + symbol);
+        }
+
+        StockHistory latest = shr.findTopByStockOrderByTradeDateDesc(stock);
+        if (latest == null) {
+            return 0.0; // or throw exception if preferred
+        }
+        return latest.getClosePrice();
+    }
+
 }
