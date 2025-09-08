@@ -9,11 +9,12 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { Notification } from '../../services/notification';
+import { Chat } from '../chat/chat';
 
 @Component({
   selector: 'app-stock',
   standalone:true,
-  imports: [CommonModule,RouterModule, ReactiveFormsModule, FormsModule, NgChartsModule,HttpClientModule],
+  imports: [CommonModule,RouterModule, ReactiveFormsModule, FormsModule, NgChartsModule,HttpClientModule, Chat],
   templateUrl: './stock.html',
   styleUrl: './stock.css'
 })

@@ -16,6 +16,9 @@
             </select>
 
         </div>
+                <div>
+            <app-chat></app-chat>
+        </div>
 
         <div class="stock-scroll">
             <div class="stock-card" *ngFor="let stock of filteredStocks" (click)="selectStock(stock)"

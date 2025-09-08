@@ -48,7 +48,9 @@ export class Dashboard implements OnInit {
 
     this.http.get<any>('http://localhost:3000/api/dashboard/details').subscribe({
       next: (res) => {
-        this.username = res.customer.firstName;
+        // this.username = res.customer.firstName;
+        // this.username = `${res.customer.firstName}`.trim();
+
         this.walletBalance = res.walletBalance ?? 0;
         this.portfolioInvested = res.invested ?? 0;
         this.portfolioGainLoss = res.profitLoss ?? 0;
@@ -65,7 +67,14 @@ export class Dashboard implements OnInit {
           type:txn.type,
         }));
 
-        this.marketList = res.market ?? [];
+        // this.marketList = res.market ?? [];
+       this.marketList = [
+  { name: 'NIFTY 50', value: 19750.85 },
+  { name: 'SENSEX', value: 66255.71 },
+  { name: 'NASDAQ', value: 13290.78 },
+  { name: 'DOW JONES', value: 34879.45 },
+  { name: 'S&P 500', value: 4497.63 }
+];
         this.profile = {
           email: res.customer.emailId,
           name: `${res.customer.firstName} ${res.customer.lastName ?? ''}`.trim(),

@@ -1,4 +1,12 @@
 /* General Reset */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #222831;
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -8,6 +16,7 @@
   
   body {
     background-color: #222831;
+    height: 100vh;
     color: #EEEEEE;
     line-height: 1.6;
   }
@@ -22,6 +31,8 @@
   }
   /* Portfolio Section */
 .portfolio-container {
+    min-height: 100vh;
+    background-color: inherit;
     padding: 2rem 3rem; /* Added horizontal spacing */
   }
   

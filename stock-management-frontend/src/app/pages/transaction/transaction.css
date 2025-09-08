@@ -23,7 +23,9 @@ body {
 
 /* Transactions Section */
 .transactions-container {
-  padding: 2rem 3rem;
+    min-height: 100vh;
+    background-color: inherit;
+    padding: 2rem 3rem;
 }
 .transaction-heading {
   font-size: 3rem;

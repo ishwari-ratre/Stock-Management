@@ -152,8 +152,8 @@
   }
   
   .section-icon {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
   }
   
 /* ==============================
@@ -170,15 +170,15 @@
 
 /* Left column: image like profile */
 .wallet-left, .portfolio-left {
-  flex: 1;
+  flex: 2;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .wallet-left img, .portfolio-left img {
-  width: 80px;           /* same size as profile image */
-  height: 80px;
+  width: 100px;           /* same size as profile image */
+  height: 100px;
   border-radius: 50%;    /* circular image */
   border: 2px solid #F66B34;
   object-fit: cover;
